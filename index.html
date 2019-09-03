@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Digital Clock</title>
+    <style type="text/css">
+        @font-face {
+            font-family: 'digital-7';
+            src: url('./digital-7/digital-7.ttf');
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        #time {
+            color: white;
+            width: 100vw;
+        }
+
+        #colorful {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+            background: linear-gradient(to bottom right, teal, #ff69b4);
+        }
+
+        #showDate {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -200%);
+            font-family: 'digital-7';
+            width: 100%;
+            text-align: center;
+        }
+
+        #showTime {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'digital-7';
+            width: 100%;
+            text-align: center;
+        }
+
+        @media only screen and (max-width: 320px) {
+            #showDate {
+                font-size: 2rem;
+            }
+
+            #showTime {
+                font-size: 4rem;
+            }
+        }
+
+        @media only screen and (min-width: 321px) and (max-width: 479px) {
+            #showDate {
+                font-size: 2rem;
+            }
+
+            #showTime {
+                font-size: 4rem;
+            }
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 575px) {
+            #showDate {
+                font-size: 2rem;
+            }
+
+            #showTime {
+                font-size: 4rem;
+            }
+        }
+
+        @media only screen and (min-width: 576px) and (max-width: 767px) {
+            #showDate {
+                font-size: 3rem;
+            }
+
+            #showTime {
+                font-size: 6rem;
+            }
+        }
+
+        @media only screen and (min-width: 768px) and (max-width: 991px) {
+            #showDate {
+                font-size: 4rem;
+            }
+
+            #showTime {
+                font-size: 8rem;
+            }
+        }
+
+        @media only screen and (min-width: 992px) and (max-width: 1199px) {
+            #showDate {
+                font-size: 5rem;
+            }
+
+            #showTime {
+                font-size: 10rem;
+            }
+        }
+
+        @media only screen and (min-width: 1200px) and (max-width: 1799px) {
+            #showDate {
+                font-size: 6rem;
+            }
+
+            #showTime {
+                font-size: 12rem;
+            }
+        }
+
+        @media only screen and (min-width: 1800px) {
+            #showDate {
+                font-size: 7rem;
+            }
+
+            #showTime {
+                font-size: 14rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="colorful"></div>
+<div id="time">
+    <p id="showDate"></p>
+    <p id="showTime"></p>
+</div>
+
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+function showTime() {
+    var myDate              = new Date();
+    var currentDay          = myDate.getDay();
+    var currentDate         = myDate.getDate();
+    var currentMonth        = myDate.getMonth() + 1;
+    var currentYear         = myDate.getFullYear();
+    var currentHours        = myDate.getHours();
+    var m                   = myDate.getMinutes();
+    var s                   = myDate.getSeconds();
+    var session;
+
+    currentHours = (currentHours == 0) ? currentHours = 12 : currentHours;
+    
+    if(currentHours >= 12) {
+        currentHours = currentHours - 12;
+        session = 'PM'
+    } else {
+        session = 'AM';
+    }
+
+    currentHours = (currentHours < 10) ? '0' + currentHours : currentHours;
+    m            = (m < 10) ? '0' + m : m;
+    s            = (s < 10) ? '0' + s : s;
+    currentMonth = (currentMonth < 10) ? '0' + currentMonth : currentMonth;
+
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']; 
+    document.getElementById('showDate').innerHTML = days[currentDay] + ' ' + currentDate + '/' + currentMonth + '/' + currentYear;
+    
+        document.getElementById('showTime').innerHTML = currentHours + ':' + m + ':' + s + ' ' + session;
+}
+    showTime();
+    setInterval(showTime, 1000);
+</script>
+</body>
+</html>
